@@ -62,7 +62,7 @@ namespace EnezaApi.Controllers
         }
 
         [HttpPut]
-        public Object Put()
+        public Object Put(int id)
         {
             return "updated user";
         }
