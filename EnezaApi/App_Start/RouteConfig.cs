@@ -32,7 +32,7 @@ namespace EnezaApi
             routes.MapHttpRoute(
                 name: "ClassStudents",
                 routeTemplate: "classes/{id}/students",
-                defaults: new { controller = "Classes", action = "students" },
+                defaults: new { controller = "Classes", action = "Students" },
                 constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
             );
 
