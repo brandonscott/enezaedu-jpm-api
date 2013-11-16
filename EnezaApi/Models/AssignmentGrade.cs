@@ -13,6 +13,12 @@ namespace EnezaApi.Models
         [ForeignKey("User"), Column(Order = 0)]
         public Int32 user { get; set; }
         public Int32 completed_date { get; set; }
-        public 
+        public float mark { get; set; }
+        [ForeignKey("Assignment"), Column(Order = 0)]
+        public Int32 assignment { get; set; }
+
+        public virtual User User { get; set; }
+        public virtual Assignment Assignment { get; set; }
+
     }
 }
