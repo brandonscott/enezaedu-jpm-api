@@ -23,7 +23,26 @@ namespace EnezaApi
 
             // GENERIC ROUTES
             routes.MapHttpRoute(
-                name: "ControllerIdAction",
+                name: "UserClasses",
+                routeTemplate: "users/{id}/classes",
+                defaults: new { controller = "Users", action = "Classes" },
+                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
+            );
+
+            routes.MapHttpRoute(
+                name: "ClassStudents",
+                routeTemplate: "classes/{id}/students",
+                defaults: new { controller = "Classes", action = "students" },
+                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
+            );
+
+            routes.MapHttpRoute(
+                name: "ControllerRoutes",
+                routeTemplate: "{controller}"
+            );
+
+            routes.MapHttpRoute(
+                name: "ControllerParams",
                 routeTemplate: "{controller}/{*parameters}"
             );
 

@@ -29,6 +29,12 @@ namespace EnezaApi.Controllers
             }
         }
 
+        [HttpGet]
+        public Object Classes(int id)
+        {
+            return "all classes for student / teacher using Id";
+        }
+
         [HttpPost]
         public Object Post()
         {
@@ -43,7 +49,14 @@ namespace EnezaApi.Controllers
                 return ErrorReporting.GenerateCustomError(100);
             }
 
+            String userNarrow = "";
             Dictionary<string, object> reqParams = UrlRouting.SplitParams(parameters);
+
+            if (!reqParams.ContainsKey("type"))
+            {
+                userNarrow = reqParams["type"].ToString();
+            }
+
             return JObject.FromObject(reqParams);
             //return "list or individual user";
         }

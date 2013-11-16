@@ -35,6 +35,10 @@ namespace EnezaApi.Classes
                         }
                     }
                 }
+                else if (p == "student" || p == "teacher")
+                {
+                    paramObj.Add("type", p);
+                }
             }
 
             return paramObj;
