@@ -10,7 +10,7 @@ namespace EnezaApi.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32 class_id { get; set; }
-        public float grade { get; set; }
+        public Int32 grade { get; set; }
         [ForeignKey("Subject"), Column(Order = 0)]
         public Int32 subject { get; set; }
         [ForeignKey("School"), Column(Order = 0)]
