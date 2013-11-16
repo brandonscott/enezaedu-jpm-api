@@ -15,9 +15,9 @@ namespace EnezaApi
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapHttpRoute(
-                name: "Registration",
-                routeTemplate: "registration",
-                defaults: new { controller = "Users", action = "Registration" },
+                name: "Authentication",
+                routeTemplate: "authenticate",
+                defaults: new { controller = "Users", action = "Authenticate" },
                 constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "POST" }) }
             );
 
