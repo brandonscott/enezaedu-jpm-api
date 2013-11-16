@@ -143,6 +143,7 @@
     <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
