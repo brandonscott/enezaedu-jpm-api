@@ -14,7 +14,9 @@ namespace TwilioService
         static string AccountSid;
         static string AuthToken;
         static TwilioRestClient twilio ;
-        static int i = 0;
+        static long lastMessageTime;
+        private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
         static void Main(string[] args)
         {
 
@@ -22,34 +24,36 @@ namespace TwilioService
             AccountSid = "AC3b8cd1e12a5b6ff4e4ea25f431833a97";
             AuthToken = "22964db1d502e5069c2d44c9a49c8b6c";
             twilio = new TwilioRestClient(AccountSid, AuthToken);
-                       
-            //Message s =  smss.Messages.Where(x => x.To == "+441332402803").FirstOrDefault();
-            
-                //Console.Write(s.Body);
-        
 
-          //  Console.WriteLine(smss.SMSMessages.First<SMSMessage>().Body);
-            //Sam 447855815341
-            //Chris 447879995760
-            //var test = twilio.SendSmsMessage("+441332402803", "+447879995760", "Hi Lisa", "");
+            lastMessageTime = ConvertToTimestamp(GetReceivedMessages()[0].DateSent);
 
-            poll.Interval = 10000;
+            poll.Interval = 2000;
             poll.Elapsed += poll_Elapsed;
             poll.Start();
-
-            //Console.WriteLine(test.Status);
-            Console.Read();
-
-
+           
+            Console.Read(); 
           }
-
+        
+        static long ConvertToTimestamp(DateTime value)
+        {
+            TimeSpan elapsedTime = value - Epoch;
+            return (long) elapsedTime.TotalSeconds;
+        }
+             
+        /// <summary>
+        /// Runs on each server poll
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         static void poll_Elapsed(object sender, ElapsedEventArgs e)
         {
             //i++;
             //var test = twilio.SendSmsMessage("+441332402803", "+447879995760", "Hi Lisa", "");
             //Console.WriteLine(i);
             //Console.Write(test);
+            GetNewReceivedMessages().ForEach((x) => { Console.WriteLine(x.Body); });
         }
+
         /// <summary>
         /// Returns all messages sent to the service
         /// </summary>
@@ -58,9 +62,24 @@ namespace TwilioService
         {
             var smss = twilio.ListMessages();
             List<Message> messages = smss.Messages.Where(x => x.To == "+441332402803").ToList();
+            //Get the latest received message
+#if DEBUG
+            Console.WriteLine(messages[0].Body);
+#endif
             return messages;
-          ;
         } 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+       static List<Message> GetNewReceivedMessages ()
+       {
+           List<Message> messages = GetReceivedMessages().Where(x => ConvertToTimestamp(x.DateSent) > lastMessageTime).ToList();
+           if (messages.Count != 0)
+             lastMessageTime = ConvertToTimestamp(messages[0].DateSent);
+           return messages;
+       }
 
     }
  }
