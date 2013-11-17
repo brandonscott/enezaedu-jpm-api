@@ -7,6 +7,7 @@ using System.Web.Http;
 
 using EnezaApi.Classes;
 using Newtonsoft.Json.Linq;
+using EnezaApi.Models;
 
 namespace EnezaApi.Controllers
 {
@@ -32,7 +33,38 @@ namespace EnezaApi.Controllers
         [HttpGet]
         public Object Classes(int id)
         {
-            return "all classes for student / teacher using Id";
+            Models.User user = Models.User.GetById(id);
+            List<Class> classes = new List<Class>();
+
+            if (user.user_type == 1) // teacher
+            {
+                List<TeacherClass> teacherClasses = TeacherClass.GetByTeacherId(id);
+                foreach(TeacherClass teacherClass in teacherClasses)
+                {
+                    classes.Add(Class.GetById(teacherClass.@class));
+                }
+            }
+            else if (user.user_type == 2) // student
+            {
+                List<StudentClass> studentClasses = StudentClass.GetByStudentId(id);
+                foreach (StudentClass studentClass in studentClasses)
+                {
+                    classes.Add(Class.GetById(studentClass.@class));
+                }
+            }
+            else
+            {
+                return JObject.FromObject(ErrorReporting.GenerateCustomError(300));
+            }
+
+            return JObject.FromObject(new
+            {
+                classes = classes.Select(cs =>
+                {
+                    return Class.OutputObject(cs);
+                })
+            });
+            //return "all classes for student / teacher using Id";
         }
 
         [HttpPost]
