@@ -33,9 +33,17 @@ namespace EnezaApi.Classes
                     description = "Username and/or Password is Incorrect";
                     break;
 
-                // User Error
+                // Users Error
                 case 300:
                     description = "User is not a teacher or a student";
+                    break;
+
+                // Messages Error
+                case 400:
+                    description = "From or To Number not recognised";
+                    break;
+                case 401:
+                    description = "Message Type not recognised";
                     break;
 
 

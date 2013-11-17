@@ -33,6 +33,11 @@ namespace EnezaApi.Models
             }
         }
 
+        public static Int32 GetIdFromNumber(string phoneNumber)
+        {
+            return 0;
+        }
+
         public static User AddNew(User user)
         {
             using (DataContext db = new DataContext())

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnezaApi.DataManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,5 +12,13 @@ namespace EnezaApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32 Id { get; set; }
         public String name { get; set; }
+
+        public static Int32 GetIdByName(string name)
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.MessageTypes.Where(mt => mt.name == name).FirstOrDefault().Id;
+            }
+        }
     }
 }
