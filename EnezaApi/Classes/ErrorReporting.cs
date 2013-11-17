@@ -37,6 +37,9 @@ namespace EnezaApi.Classes
                 case 300:
                     description = "User is not a teacher or a student";
                     break;
+                case 301:
+                    description = "Could not delete User from Class list";
+                    break;
 
                 // Messages Error
                 case 400:

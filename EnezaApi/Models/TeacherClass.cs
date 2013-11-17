@@ -26,5 +26,47 @@ namespace EnezaApi.Models
                 return db.TeacherClasses.Where(tc => tc.teacher == id).ToList();
             }
         }
+
+        public static TeacherClass GetByIds(int classId, int userId)
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.TeacherClasses.Where(tc => tc.@class == classId && tc.teacher == userId).FirstOrDefault();
+            }
+        }
+
+        public static TeacherClass AddTeacher(int id, int userId)
+        {
+            using (DataContext db = new DataContext())
+            {
+                TeacherClass newTC = new TeacherClass();
+                newTC.@class = id;
+                newTC.teacher = userId;
+
+                db.TeacherClasses.Add(newTC);
+                db.SaveChanges();
+
+                return newTC;
+            }
+        }
+
+        public static Boolean RemoveTeacher(int id, int userId)
+        {
+            using (DataContext db = new DataContext())
+            {
+                TeacherClass tc = GetByIds(id, userId);
+                
+                if (tc != null)
+                {
+                    db.TeacherClasses.Attach(tc);
+                    db.TeacherClasses.Remove(tc);
+                    db.SaveChanges();
+
+                    return true;
+                }
+
+                return false;
+            }
+        }
     }
 }
