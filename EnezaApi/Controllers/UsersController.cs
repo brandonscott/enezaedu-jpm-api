@@ -36,9 +36,12 @@ namespace EnezaApi.Controllers
         }
 
         [HttpPost]
-        public Object Post()
+        public Object Post(Models.User user)
         {
-            return "newly created object";
+            Models.User newUser = Models.User.AddNew(user);
+
+            return newUser;
+            //return "newly created object";
         }
 
         [HttpGet]
