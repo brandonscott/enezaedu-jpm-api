@@ -19,7 +19,7 @@ namespace TwilioService
             {
                 byte[] byteArray = Encoding.UTF8.GetBytes(body);
                 request.ContentLength = byteArray.Length;
-                request.ContentType = "Application/json";
+                request.ContentType = "application/json";
 
                 Stream dataStream = request.GetRequestStream();
                 dataStream.Write(byteArray, 0, byteArray.Length);
