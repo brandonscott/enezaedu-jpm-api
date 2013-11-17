@@ -12,9 +12,9 @@ namespace EnezaApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32 Id { get; set; }
         [ForeignKey("User"), Column(Order = 0)]
-        public Int32 teacher { get; set; }
+        public Int32 teacherId { get; set; }
         [ForeignKey("Class"), Column(Order = 1)]
-        public Int32 @class { get; set; }
+        public Int32 classId { get; set; }
 
         public virtual User User { get; set; }
         public virtual Class @Class { get; set; }
@@ -23,7 +23,7 @@ namespace EnezaApi.Models
         {
             using (DataContext db = new DataContext())
             {
-                return db.TeacherClasses.Where(tc => tc.teacher == id).ToList();
+                return db.TeacherClasses.Where(tc => tc.teacherId == id).ToList();
             }
         }
 
@@ -31,7 +31,7 @@ namespace EnezaApi.Models
         {
             using (DataContext db = new DataContext())
             {
-                return db.TeacherClasses.Where(tc => tc.@class == classId && tc.teacher == userId).FirstOrDefault();
+                return db.TeacherClasses.Where(tc => tc.classId == classId && tc.teacherId == userId).FirstOrDefault();
             }
         }
 
@@ -40,8 +40,8 @@ namespace EnezaApi.Models
             using (DataContext db = new DataContext())
             {
                 TeacherClass newTC = new TeacherClass();
-                newTC.@class = id;
-                newTC.teacher = userId;
+                newTC.classId = id;
+                newTC.teacherId = userId;
 
                 db.TeacherClasses.Add(newTC);
                 db.SaveChanges();

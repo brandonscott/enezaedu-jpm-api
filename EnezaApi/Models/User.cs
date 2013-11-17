@@ -19,7 +19,7 @@ namespace EnezaApi.Models
         [ForeignKey("UserType"), Column(Order= 0)]
         public Int32 user_type { get; set; }
         [ForeignKey("School"), Column(Order= 1)]
-        public Int32 school { get; set; }
+        public Int32 schoolId { get; set; }
         public String gender { get; set; }
 
         public virtual UserType UserType { get; set; }
@@ -69,7 +69,7 @@ namespace EnezaApi.Models
                 mobile_number = user.mobile_number,
                 email = user.email,
                 user_type = user.user_type,
-                school = user.school,
+                school = user.schoolId,
                 gender = user.gender
             };
         }

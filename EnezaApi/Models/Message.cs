@@ -35,7 +35,7 @@ namespace EnezaApi.Models
         {
             using (DataContext db = new DataContext())
             {
-                return db.Messages.Where(m => m.sent_time > timestamp && m.from_user == userId || m.to_user == userId).ToList();
+                return db.Messages.Where(m => m.sent_time > timestamp && (m.from_user == userId || m.to_user == userId)).ToList();
             }
         }
 

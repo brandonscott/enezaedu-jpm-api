@@ -12,9 +12,9 @@ namespace EnezaApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32 Id { get; set; }
         [ForeignKey("User"), Column(Order = 0)]
-        public Int32 student { get; set; }
+        public Int32 studentId { get; set; }
         [ForeignKey("Class"), Column(Order = 1)]
-        public Int32 @class { get; set; }
+        public Int32 classId { get; set; }
 
         public virtual User User { get; set; }
         public virtual Class @Class { get; set; }
@@ -23,7 +23,7 @@ namespace EnezaApi.Models
         {
             using (DataContext db = new DataContext())
             {
-                return db.StudentClasses.Where(sc => sc.@class == classId).ToList();
+                return db.StudentClasses.Where(sc => sc.classId == classId).ToList();
             }
         }
 
@@ -31,7 +31,7 @@ namespace EnezaApi.Models
         {
             using (DataContext db = new DataContext())
             {
-                return db.StudentClasses.Where(tc => tc.student == id).ToList();
+                return db.StudentClasses.Where(tc => tc.studentId == id).ToList();
             }
         }
 
@@ -39,7 +39,7 @@ namespace EnezaApi.Models
         {
             using (DataContext db = new DataContext())
             {
-                return db.StudentClasses.Where(tc => tc.@class == classId && tc.student == userId).FirstOrDefault();
+                return db.StudentClasses.Where(tc => tc.classId == classId && tc.studentId == userId).FirstOrDefault();
             }
         }
 
@@ -48,8 +48,8 @@ namespace EnezaApi.Models
             using (DataContext db = new DataContext())
             {
                 StudentClass newSC = new StudentClass();
-                newSC.@class = id;
-                newSC.student = userId;
+                newSC.classId = id;
+                newSC.studentId = userId;
 
                 db.StudentClasses.Add(newSC);
                 db.SaveChanges();
