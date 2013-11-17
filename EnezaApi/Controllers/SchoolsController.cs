@@ -30,9 +30,9 @@ namespace EnezaApi.Controllers
         }
 
         [HttpGet]
-        public Object AverageScores(int userId)
+        public Object AverageScores()
         {
-            Models.User currUser = Models.User.GetById(userId);
+            /*Models.User currUser = Models.User.GetById(userId);
 
             if (currUser.user_type != 1)
             {
@@ -53,10 +53,13 @@ namespace EnezaApi.Controllers
                 }
             }
 
-            /*foreach(Class item in uniqueClasses)
+            foreach(Class item in uniqueClasses)
             {
-                Models.User user = Models.User.GetById()
+                Models.User user = Models.User.GetById(item.);
                 if (!uniqueUsers.Contains())
+                {
+                    uniqueUsers.Add(user);
+                }
             }*/
 
 
@@ -64,7 +67,11 @@ namespace EnezaApi.Controllers
             return JObject.FromObject(new { 
                 schools = new ArrayList {
                     new { score = 87.6, name = "Rift Valley" },
-                    new { score = 95.6, name = "North Eastern" }
+                    new { score = 95.4, name = "North Eastern" },
+                    new { score = 75.5, name = "Eastern" },
+                    new { score = 65.3, name = "Western" },
+                    new { score = 85.8, name = "Nairobi" },
+                    new { score = 91.9, name = "Nyanza" }
                 }
             });
         }

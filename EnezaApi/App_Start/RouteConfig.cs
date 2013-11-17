@@ -65,7 +65,7 @@ namespace EnezaApi
 
             routes.MapHttpRoute(
                 name: "SchoolsAverageScores",
-                routeTemplate: "api/schools/averagescores/{userId}",
+                routeTemplate: "api/schools/averagescores",
                 defaults: new { controller = "Schools", action = "AverageScores" },
                 constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
             );
