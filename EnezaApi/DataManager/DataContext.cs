@@ -21,6 +21,7 @@ namespace EnezaApi.DataManager
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<TeacherClass> TeacherClasses { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserType> UserTypes { get; set; }
         
         public DataContext()
         {
