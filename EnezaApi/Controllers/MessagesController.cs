@@ -40,7 +40,7 @@ namespace EnezaApi.Controllers
             message.sent_time = (Int32)postData["sent_time"];
             message.received_time = (Int32)postData["received_time"];
             message.body = (String)postData["body"];
-            MessageType tempMessageType = MessageType.GetByName((String)postData["message_time"]);
+            MessageType tempMessageType = MessageType.GetByName((String)postData["message_type"]);
 
             if (tempMessageType == null)
             {
