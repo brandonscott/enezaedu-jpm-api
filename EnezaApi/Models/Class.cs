@@ -20,6 +20,14 @@ namespace EnezaApi.Models
         public virtual Subject Subject { get; set; }
         public virtual School School { get; set; }
 
+        public static Class GetById(int id)
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.Classes.Where(c => c.Id == id).FirstOrDefault();
+            }
+        }
+
         public static List<Class> GetAll()
         {
             using (DataContext db = new DataContext())
