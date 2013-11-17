@@ -41,7 +41,7 @@ namespace EnezaApi.Models
             return new {
                 id = @class.Id,
                 grade = @class.grade,
-                subject = @class.subject,
+                subject = Subject.GetById(@class.subject).name,
                 school = @class.school
             };
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnezaApi.DataManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -17,5 +18,13 @@ namespace EnezaApi.Models
 
         public virtual User User { get; set; }
         public virtual Class @Class { get; set; }
+
+        public static List<TeacherClass> GetByTeacherId(int id)
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.TeacherClasses.Where(tc => tc.teacher == id).ToList();
+            }
+        }
     }
 }

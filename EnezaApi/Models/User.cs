@@ -33,6 +33,17 @@ namespace EnezaApi.Models
             }
         }
 
+        public static User AddNew(User user)
+        {
+            using (DataContext db = new DataContext())
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+
+                return user;
+            }
+        }
+
         public static Object OutputObject(User user)
         {
             return new

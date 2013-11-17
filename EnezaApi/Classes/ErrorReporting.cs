@@ -33,6 +33,11 @@ namespace EnezaApi.Classes
                     description = "Username and/or Password is Incorrect";
                     break;
 
+                // User Error
+                case 300:
+                    description = "User is not a teacher or a student";
+                    break;
+
 
                 default:
                     description = "something went wrong...";
