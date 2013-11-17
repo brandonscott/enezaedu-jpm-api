@@ -16,13 +16,18 @@ namespace EnezaApi.Controllers
         [HttpPost]
         public Object Authenticate(HttpRequestMessage request)
         {
+            // CF: TODO Add actual user auth
             JObject postData = JObject.Parse(request.Content.ReadAsStringAsync().Result);
             string username = (String)postData["username"];
             string password = (String)postData["password"];
 
             if (username == "admin" && password == "admin")
             {
-                return JObject.FromObject(new { valid = true });
+                return JObject.FromObject(new
+                {
+                    valid = true//,
+                    //user = 
+                });
             }
             else
             {
@@ -72,7 +77,7 @@ namespace EnezaApi.Controllers
         {
             Models.User newUser = Models.User.AddNew(user);
 
-            return newUser;
+            return Models.User.OutputObject(newUser);
             //return "newly created object";
         }
 
@@ -106,6 +111,40 @@ namespace EnezaApi.Controllers
         public Object Delete()
         {
             return "user deleted json";
+        }
+
+        [HttpGet]
+        public Object Messages(int id, int timestamp)
+        {
+            List<Message> messages = Message.GetMessagesSince(id, timestamp);
+            List<Models.User> users = new List<Models.User>();
+
+            foreach(Message message in messages)
+            {
+                Models.User tempFrom = Models.User.GetById(message.from_user);
+                Models.User tempTo = Models.User.GetById(message.from_user);
+
+                if (!users.Contains(tempFrom))
+                {
+                    users.Add(tempFrom);
+                }
+                else if (!users.Contains(tempTo))
+                {
+                    users.Add(tempTo);
+                }
+            }
+
+            return JObject.FromObject(new
+            {
+                messages = messages.Select(m =>
+                {
+                    return Message.OutputObject(m);
+                }),
+                users = users.Select(u =>
+                {
+                    return Models.User.OutputObject(u);
+                })
+            });
         }
     }
 }

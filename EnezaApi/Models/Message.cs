@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnezaApi.DataManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -21,5 +22,46 @@ namespace EnezaApi.Models
 
         public virtual User User { get; set; }
         public virtual MessageType MessageType { get; set; }
+
+        public static Message GetById(int id)
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.Messages.Where(m => m.Id == id).FirstOrDefault();
+            }
+        }
+
+        public static List<Message> GetMessagesSince(int userId, int timestamp)
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.Messages.Where(m => m.sent_time > timestamp && m.from_user == userId || m.to_user == userId).ToList();
+            }
+        }
+
+        public static Message AddNew(Message message)
+        {
+            using (DataContext db = new DataContext())
+            {
+                db.Messages.Add(message);
+                db.SaveChanges();
+
+                return message;
+            }
+        }
+
+        public static Object OutputObject(Message message)
+        {
+            return new
+            {
+                id = message.Id,
+                from_user = message.from_user,
+                to_user = message.to_user,
+                sent_time = message.sent_time,
+                received_time = message.received_time,
+                body = message.body,
+                message_type = message.message_type
+            };
+        }
     }
 }
