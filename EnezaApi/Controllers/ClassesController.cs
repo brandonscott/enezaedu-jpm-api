@@ -39,7 +39,7 @@ namespace EnezaApi.Controllers
             return JObject.FromObject(new
             {
                 students = classList.Select(cs => {
-                    return Models.User.OutputObject(Models.User.GetById(cs.student));
+                    return Models.User.OutputObject(Models.User.GetById(cs.studentId));
                 })
             });
             //return "return list of students in class";

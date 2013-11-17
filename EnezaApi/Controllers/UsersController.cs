@@ -46,7 +46,7 @@ namespace EnezaApi.Controllers
                 List<TeacherClass> teacherClasses = TeacherClass.GetByTeacherId(id);
                 foreach(TeacherClass teacherClass in teacherClasses)
                 {
-                    classes.Add(Class.GetById(teacherClass.@class));
+                    classes.Add(Class.GetById(teacherClass.classId));
                 }
             }
             else if (user.user_type == 2) // student
@@ -54,7 +54,7 @@ namespace EnezaApi.Controllers
                 List<StudentClass> studentClasses = StudentClass.GetByStudentId(id);
                 foreach (StudentClass studentClass in studentClasses)
                 {
-                    classes.Add(Class.GetById(studentClass.@class));
+                    classes.Add(Class.GetById(studentClass.classId));
                 }
             }
             else
@@ -85,7 +85,7 @@ namespace EnezaApi.Controllers
             user.mobile_number = (String)postData["mobile_number"];
             user.email = (String)postData["email"];
             user.user_type = (Int32)postData["user_type"];
-            user.school = (Int32)postData["school"];
+            user.schoolId = (Int32)postData["school"];
             user.gender = (String)postData["gender"];
 
             return JObject.FromObject( new
@@ -137,13 +137,14 @@ namespace EnezaApi.Controllers
             foreach(Message message in messages)
             {
                 Models.User tempFrom = Models.User.GetById(message.from_user);
-                Models.User tempTo = Models.User.GetById(message.from_user);
+                Models.User tempTo = Models.User.GetById(message.to_user);
 
                 if (!users.Contains(tempFrom))
                 {
                     users.Add(tempFrom);
                 }
-                else if (!users.Contains(tempTo))
+
+                if (!users.Contains(tempTo))
                 {
                     users.Add(tempTo);
                 }

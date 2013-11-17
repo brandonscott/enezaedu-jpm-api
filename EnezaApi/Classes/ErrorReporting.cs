@@ -49,6 +49,11 @@ namespace EnezaApi.Classes
                     description = "Message Type not recognised";
                     break;
 
+                // Reports Error
+                case 500:
+                    description = "User is not a teacher";
+                    break;
+
 
                 default:
                     description = "something went wrong...";

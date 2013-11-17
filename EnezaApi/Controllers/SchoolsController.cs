@@ -7,8 +7,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-using Newtonsoft.Json.Linq;
 using System.Collections;
+using EnezaApi.Classes;
 
 namespace EnezaApi.Controllers
 {
@@ -30,12 +30,32 @@ namespace EnezaApi.Controllers
         }
 
         [HttpGet]
-        public Object AverageScores()
+        public Object AverageScores(int userId)
         {
+            /*Models.User currUser = Models.User.GetById(userId);
+
+            if (currUser.user_type != 1)
+            {
+                return JObject.FromObject(ErrorReporting.GenerateCustomError(500));
+            }
+
+            List<TeacherClass> tcList = TeacherClass.GetByTeacherId(userId);
+            List<Class> uniqueClasses = new List<Class>();
+
+            foreach(TeacherClass tc in tcList)
+            {
+                Class @class = Class.GetById(tc.@class);
+
+                if (!uniqueClasses.Contains(@class))
+                {
+                    uniqueClasses.Add(@class);
+                }
+            }*/
+
             return JObject.FromObject(new { 
                 schools = new ArrayList {
-                    new { score = 87.6, name = "Bob's" },
-                    new { score = 95.6, name = "Chris'" }
+                    new { score = 87.6, name = "Rift Valley" },
+                    new { score = 95.6, name = "North Eastern" }
                 }
             });
         }
