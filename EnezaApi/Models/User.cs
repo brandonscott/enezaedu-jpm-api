@@ -49,7 +49,7 @@ namespace EnezaApi.Models
             return new
             {
                 id = user.Id,
-                name = user.first_name + user.last_name,
+                name = user.first_name + " " + user.last_name,
                 mobile_number = user.mobile_number,
                 email = user.email,
                 user_type = user.user_type,

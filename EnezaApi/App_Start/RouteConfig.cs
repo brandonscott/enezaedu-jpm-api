@@ -42,6 +42,13 @@ namespace EnezaApi
                 constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
             );
 
+            routes.MapHttpRoute(
+                name: "UserMessages",
+                routeTemplate: "api/users/{id}/messages/{timestamp}",
+                defaults: new { controller = "Users", action = "Messages" },
+                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
+            );
+
             // GENERIC ROUTES
             routes.MapHttpRoute(
                 name: "ControllerRoutes",
