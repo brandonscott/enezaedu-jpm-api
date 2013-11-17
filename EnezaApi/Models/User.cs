@@ -24,12 +24,29 @@ namespace EnezaApi.Models
 
         public virtual UserType UserType { get; set; }
         public virtual School School { get; set; }
+        public virtual ICollection<AssignmentGrade> Grades { get; set; }
+
+        public static List<User> GetAll()
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.Users.ToList();
+            }
+        }
 
         public static User GetById(int id)
         {
             using (DataContext db = new DataContext())
             {
                 return db.Users.Where(u => u.Id == id).FirstOrDefault();
+            }
+        }
+
+        public static List<User> GetByType(int typeId)
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.Users.Where(u => u.user_type == typeId).ToList();
             }
         }
 
