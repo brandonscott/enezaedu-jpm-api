@@ -21,18 +21,18 @@ namespace EnezaApi.Controllers
             string username = (String)postData["username"];
             string password = (String)postData["password"];
 
-            if (username == "admin" && password == "admin")
+            Models.User user = Models.User.AccountAuth(username, password);
+
+            if (user == null)
             {
-                return JObject.FromObject(new
-                {
-                    valid = true//,
-                    //user = 
-                });
+                return JObject.FromObject(ErrorReporting.GenerateCustomError(200));
             }
-            else
+
+            return JObject.FromObject(new
             {
-                return ErrorReporting.GenerateCustomError(200);
-            }
+                valid = true,
+                user_id = user.Id
+            });
         }
 
         [HttpGet]
@@ -73,11 +73,26 @@ namespace EnezaApi.Controllers
         }
 
         [HttpPost]
-        public Object Post(Models.User user)
+        public Object Registration(HttpRequestMessage request)
         {
-            Models.User newUser = Models.User.AddNew(user);
+            JObject postData = JObject.Parse(request.Content.ReadAsStringAsync().Result);
 
-            return Models.User.OutputObject(newUser);
+            Models.User user = new Models.User();
+
+            user.first_name = (String)postData["first_name"];
+            user.last_name = (String)postData["last_name"];
+            user.password = (String)postData["password"];
+            user.mobile_number = (String)postData["mobile_number"];
+            user.email = (String)postData["email"];
+            user.user_type = (Int32)postData["user_type"];
+            user.school = (Int32)postData["school"];
+            user.gender = (String)postData["gender"];
+
+            return JObject.FromObject( new
+                {
+                    user = Models.User.OutputObject(Models.User.AddNew(user)),
+                    valid = true
+                });
             //return "newly created object";
         }
 

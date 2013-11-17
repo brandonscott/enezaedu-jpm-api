@@ -22,6 +22,13 @@ namespace EnezaApi
             );
 
             routes.MapHttpRoute(
+                name: "UserRegistration",
+                routeTemplate: "api/users",
+                defaults: new { controller = "Users", action = "Registration" },
+                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "POST" }) }
+            );
+
+            routes.MapHttpRoute(
                name: "UserClasses",
                routeTemplate: "api/users/{id}/classes",
                defaults: new { controller = "Users", action = "Classes" },

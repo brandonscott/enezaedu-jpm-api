@@ -41,14 +41,22 @@ namespace EnezaApi.Models
             }
         }
 
-        public static User AddNew(User user)
+        public static User AddNew(User newUser)
         {
             using (DataContext db = new DataContext())
             {
-                db.Users.Add(user);
+                db.Users.Add(newUser);
                 db.SaveChanges();
 
-                return user;
+                return newUser;
+            }
+        }
+
+        public static User AccountAuth(String username, String password)
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.Users.Where(u => u.email == username && u.password == password).FirstOrDefault();
             }
         }
 
