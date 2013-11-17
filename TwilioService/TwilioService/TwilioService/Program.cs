@@ -51,7 +51,17 @@ namespace TwilioService
             //var test = twilio.SendSmsMessage("+441332402803", "+447879995760", "Hi Lisa", "");
             //Console.WriteLine(i);
             //Console.Write(test);
-            GetNewReceivedMessages().ForEach((x) => { Console.WriteLine(x.Body); });
+            try
+            {
+                GetNewReceivedMessages().ForEach((x) =>
+                { //ADD MESSAGE ENDPOINT 
+                    Console.WriteLine(x.Body);
+                });
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>
@@ -60,13 +70,23 @@ namespace TwilioService
         /// <returns>Messages List</returns>
         static List<Message> GetReceivedMessages ()  
         {
-            var smss = twilio.ListMessages();
-            List<Message> messages = smss.Messages.Where(x => x.To == "+441332402803").ToList();
+            List<Message> messages = null;
+            try
+            {
+                var smss = twilio.ListMessages();
+                messages = smss.Messages.Where(x => x.To == "+441332402803").ToList();
+                
+            }
+            catch
+            {
+
+            }
+            return messages;
             //Get the latest received message
 #if DEBUG
             Console.WriteLine(messages[0].Body);
 #endif
-            return messages;
+           
         } 
 
         /// <summary>
@@ -75,9 +95,18 @@ namespace TwilioService
         /// <returns></returns>
        static List<Message> GetNewReceivedMessages ()
        {
-           List<Message> messages = GetReceivedMessages().Where(x => ConvertToTimestamp(x.DateSent) > lastMessageTime).ToList();
-           if (messages.Count != 0)
-             lastMessageTime = ConvertToTimestamp(messages[0].DateSent);
+           List<Message> messages = null;
+           try
+           {
+               messages = GetReceivedMessages().Where(x => ConvertToTimestamp(x.DateSent) > lastMessageTime).ToList();
+               if (messages.Count != 0)
+                   lastMessageTime = ConvertToTimestamp(messages[0].DateSent);
+              
+           }
+           catch
+           {
+
+           }
            return messages;
        }
 
