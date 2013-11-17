@@ -8,20 +8,19 @@ using EnezaApi.Models;
 
 namespace EnezaApi.DataManager
 {
-    public class DataContext : DbContext
+    public class DataContext: DbContext
     {
-        public DbSet<Assignment> Assignment { get; set; }
-        public DbSet<AssignmentGrade> AssignmentGrade { get; set; }
-        public DbSet<Class> Class { get; set; }
-        public DbSet<Message> Message { get; set; }
-        public DbSet<MessageType> MessageType { get; set; }
-        public DbSet<Region> Region { get; set; }
-        public DbSet<School> School { get; set; }
-        public DbSet<StudentClass> StudentClass { get; set; }
-        public DbSet<Subject> Subject { get; set; }
-        public DbSet<TeacherClass> TeacherClass { get; set; }
-        public DbSet<User> User { get; set; }
-        public DbSet<UserType> Pages { get; set; }
+        public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<AssignmentGrade> AssignmentGrades { get; set; }
+        public DbSet<Class> Classes { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<MessageType> MessageTypes { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<School> Schools { get; set; }
+        public DbSet<StudentClass> StudentClasses { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<TeacherClass> TeacherClasses { get; set; }
+        public DbSet<User> Users { get; set; }
         
         public DataContext()
         {

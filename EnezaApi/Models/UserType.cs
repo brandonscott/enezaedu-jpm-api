@@ -9,7 +9,7 @@ namespace EnezaApi.Models
     public class UserType
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Int32 user_type_id { get; set; }
+        public Int32 Id { get; set; }
         public String name { get; set; }
     }
 }

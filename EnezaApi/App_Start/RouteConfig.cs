@@ -16,34 +16,41 @@ namespace EnezaApi
 
             routes.MapHttpRoute(
                 name: "Authentication",
-                routeTemplate: "authenticate",
+                routeTemplate: "api/authenticate",
                 defaults: new { controller = "Users", action = "Authenticate" },
                 constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "POST" }) }
             );
 
-            // GENERIC ROUTES
             routes.MapHttpRoute(
-                name: "UserClasses",
-                routeTemplate: "users/{id}/classes",
-                defaults: new { controller = "Users", action = "Classes" },
-                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
-            );
+               name: "UserClasses",
+               routeTemplate: "api/users/{id}/classes",
+               defaults: new { controller = "Users", action = "Classes" },
+               constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
+           );
 
             routes.MapHttpRoute(
                 name: "ClassStudents",
-                routeTemplate: "classes/{id}/students",
+                routeTemplate: "api/classes/{id}/students",
                 defaults: new { controller = "Classes", action = "Students" },
                 constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
             );
 
             routes.MapHttpRoute(
+                name: "SchoolsAverageScores",
+                routeTemplate: "api/schools/averagescores",
+                defaults: new { controller = "Schools", action = "AverageScores" },
+                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
+            );
+
+            // GENERIC ROUTES
+            routes.MapHttpRoute(
                 name: "ControllerRoutes",
-                routeTemplate: "{controller}"
+                routeTemplate: "api/{controller}"
             );
 
             routes.MapHttpRoute(
                 name: "ControllerParams",
-                routeTemplate: "{controller}/{*parameters}"
+                routeTemplate: "api/{controller}/{*parameters}"
             );
 
             // DEFAULT ROUTE
