@@ -9,7 +9,7 @@ namespace EnezaApi.Models
     public class User
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Int32 user_id { get;set; }
+        public Int32 Id { get;set; }
         public String first_name { get; set; }
         public String last_name { get; set; }
         public String password { get; set; }
@@ -17,7 +17,7 @@ namespace EnezaApi.Models
         public String email { get; set; }
         [ForeignKey("UserType"), Column(Order= 0)]
         public Int32 user_type { get; set; }
-        [ForeignKey("School"), Column(Order= 0)]
+        [ForeignKey("School"), Column(Order= 1)]
         public Int32 school { get; set; }
         public char gender { get; set; }
 

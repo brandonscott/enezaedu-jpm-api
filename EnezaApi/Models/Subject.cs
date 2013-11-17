@@ -9,7 +9,7 @@ namespace EnezaApi.Models
     public class Subject
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Int32 subject_id { get; set; }
+        public Int32 Id { get; set; }
         public String name { get; set; }
     }
 }

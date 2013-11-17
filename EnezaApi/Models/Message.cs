@@ -9,15 +9,14 @@ namespace EnezaApi.Models
     public class Message
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Int32 message_id { get; set; }
+        public Int32 Id { get; set; }
         [ForeignKey("User"), Column(Order = 0)]
         public Int32 from_user { get; set; }
-        [ForeignKey("User"), Column(Order = 0)]
         public Int32 to_user { get; set; }
         public Int32 sent_time { get; set; }
         public Int32 received_time { get; set; }
         public String body { get; set; }
-        [ForeignKey("MessageType"), Column(Order = 0)]
+        [ForeignKey("MessageType"), Column(Order = 1)]
         public Int32 message_type { get; set; }
 
         public virtual User User { get; set; }
