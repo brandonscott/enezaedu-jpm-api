@@ -26,5 +26,13 @@ namespace EnezaApi.Models
                 return db.StudentClasses.Where(sc => sc.@class == classId).ToList();
             }
         }
+
+        public static List<StudentClass> GetByStudentId(int id)
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.StudentClasses.Where(tc => tc.student == id).ToList();
+            }
+        }
     }
 }
