@@ -59,7 +59,7 @@ namespace EnezaApi.Controllers
                     valid = true
                 });
             }
-            else if (currUser.user_type == 2) // teacher
+            else if (currUser.user_type == 3) // student
             {
                 StudentClass studentClass = StudentClass.AddStudent(id, userId);
                 return JObject.FromObject(new
@@ -84,7 +84,7 @@ namespace EnezaApi.Controllers
             {
                 result = TeacherClass.RemoveTeacher(id, userId);
             }
-            else if (currUser.user_type == 2) // teacher
+            else if (currUser.user_type == 3) // student
             {
                 result = StudentClass.RemoveStudent(id, userId);
             }

@@ -151,7 +151,6 @@
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataManager\DataContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -16,6 +16,10 @@ namespace EnezaApi.Classes
             {
                 ps = parameters.Split('/');
             }
+            else
+            {
+                ps = new String[]{parameters};
+            }
 
             foreach (string p in ps)
             {

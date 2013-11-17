@@ -99,6 +99,8 @@ namespace EnezaApi.Controllers
         [HttpGet]
         public Object Get(string parameters)
         {
+            List<User> users = new List<User>();
+
             if (String.IsNullOrEmpty(parameters))
             {
                 return ErrorReporting.GenerateCustomError(100);
@@ -107,13 +109,29 @@ namespace EnezaApi.Controllers
             String userNarrow = "";
             Dictionary<string, object> reqParams = UrlRouting.SplitParams(parameters);
 
-            if (!reqParams.ContainsKey("type"))
+            if (reqParams.ContainsKey("type"))
             {
                 userNarrow = reqParams["type"].ToString();
             }
 
-            return JObject.FromObject(reqParams);
+            if (userNarrow == "student")
+            {
+                users = Models.User.GetByType(3);
+            }
+            else if (userNarrow == "teacher")
+            {
+                users = Models.User.GetByType(1);
+            }
+
+            //return JObject.FromObject(reqParams);
             //return "list or individual user";
+            return JObject.FromObject( new
+            {
+                users = users.Select(u =>
+                {
+                    return Models.User.OutputObject(u);
+                }),
+            });
         }
 
         [HttpPut]
@@ -159,6 +177,35 @@ namespace EnezaApi.Controllers
                 users = users.Select(u =>
                 {
                     return Models.User.OutputObject(u);
+                })
+            });
+        }
+
+        [HttpGet]
+        public Object AverageGrades()
+        {
+            List<Models.User> users = Models.User.GetAll();
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                users[i].Grades = AssignmentGrade.GetByUserId(users[i].Id);
+            }
+
+            for (int i = users.Count - 1; i >= 0; i--)
+            {
+                if (users[i].Grades.Count == 0)
+                {
+                    users.RemoveAt(i);
+                }
+            }
+
+            return JObject.FromObject(new
+            {
+                users = users.Select(u => new
+                {
+                    id = u.Id,
+                    name = u.first_name + " " + u.last_name,
+                    average = u.Grades.Average(a => a.mark)
                 })
             });
         }

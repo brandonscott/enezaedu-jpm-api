@@ -32,7 +32,7 @@ namespace EnezaApi.Controllers
         [HttpGet]
         public Object AverageScores(int userId)
         {
-            /*Models.User currUser = Models.User.GetById(userId);
+            Models.User currUser = Models.User.GetById(userId);
 
             if (currUser.user_type != 1)
             {
@@ -41,16 +41,25 @@ namespace EnezaApi.Controllers
 
             List<TeacherClass> tcList = TeacherClass.GetByTeacherId(userId);
             List<Class> uniqueClasses = new List<Class>();
+            List<Models.User> uniqueUsers = new List<Models.User>();
 
             foreach(TeacherClass tc in tcList)
             {
-                Class @class = Class.GetById(tc.@class);
+                Class @class = Class.GetById(tc.classId);
 
                 if (!uniqueClasses.Contains(@class))
                 {
                     uniqueClasses.Add(@class);
                 }
+            }
+
+            /*foreach(Class item in uniqueClasses)
+            {
+                Models.User user = Models.User.GetById()
+                if (!uniqueUsers.Contains())
             }*/
+
+
 
             return JObject.FromObject(new { 
                 schools = new ArrayList {

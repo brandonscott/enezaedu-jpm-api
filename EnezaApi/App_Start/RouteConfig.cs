@@ -15,6 +15,20 @@ namespace EnezaApi
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapHttpRoute(
+                name: "AddToStudents",
+                routeTemplate: "api/classes/{id}/add/{userId}",
+                defaults: new { controller = "Classes", action = "AddUser" },
+                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "POST" }) }
+            );
+
+            routes.MapHttpRoute(
+                name: "RemoveFromClass",
+                routeTemplate: "api/classes/{id}/delete/{userId}",
+                defaults: new { controller = "Classes", action = "DeleteUser" },
+                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "DELETE" }) }
+            );
+
+            routes.MapHttpRoute(
                 name: "Authentication",
                 routeTemplate: "api/authenticate",
                 defaults: new { controller = "Users", action = "Authenticate" },
@@ -43,17 +57,10 @@ namespace EnezaApi
             );
 
             routes.MapHttpRoute(
-                name: "AddToStudents",
-                routeTemplate: "api/classes/{id}/add/{userId}",
-                defaults: new { controller = "Classes", action = "AddUser" },
-                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "POST" }) }
-            );
-
-            routes.MapHttpRoute(
-                name: "RemoveFromClass",
-                routeTemplate: "api/classes/{id}/delete/{userId}",
-                defaults: new { controller = "Classes", action = "DeleteUser" },
-                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "DELETE" }) }
+                name: "UsersAverageGrades",
+                routeTemplate: "api/users/averagegrades",
+                defaults: new { controller = "Users", action = "AverageGrades" },
+                constraints: new { HttpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
             );
 
             routes.MapHttpRoute(
