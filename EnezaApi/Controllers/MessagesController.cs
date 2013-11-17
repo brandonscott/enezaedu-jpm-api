@@ -15,8 +15,6 @@ namespace EnezaApi.Controllers
     {
         [HttpPost]
         public Object Post(HttpRequestMessage request)
-            
-            //String toNumber, String fromNumber, Int32 sent_time, Int32 received_time, String body, String message_type)
         {
             JObject postData = JObject.Parse(request.Content.ReadAsStringAsync().Result);
 
