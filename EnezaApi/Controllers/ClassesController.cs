@@ -33,7 +33,15 @@ namespace EnezaApi.Controllers
         [HttpGet]
         public Object Students(int id)
         {
-            return "return list of students in class";
+            List<StudentClass> classList = StudentClass.GetByClassId(id);
+
+            return JObject.FromObject(new
+            {
+                students = classList.Select(cs => {
+                    return Models.User.OutputObject(Models.User.GetById(cs.student));
+                })
+            });
+            //return "return list of students in class";
         }
     }
 }
