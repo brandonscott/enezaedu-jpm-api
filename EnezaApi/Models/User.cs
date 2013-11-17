@@ -33,9 +33,12 @@ namespace EnezaApi.Models
             }
         }
 
-        public static Int32 GetIdFromNumber(string phoneNumber)
+        public static User GetByNumber(string phoneNumber)
         {
-            return 0;
+            using (DataContext db = new DataContext())
+            {
+                return db.Users.Where(u => u.mobile_number == phoneNumber).FirstOrDefault();
+            }
         }
 
         public static User AddNew(User user)

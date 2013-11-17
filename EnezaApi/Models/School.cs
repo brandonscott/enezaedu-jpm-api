@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnezaApi.DataManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -15,5 +16,22 @@ namespace EnezaApi.Models
         public Int32 region { get; set; }
 
         public virtual Region Region { get; set; }
+
+        public static List<School> GetAll()
+        {
+            using (DataContext db = new DataContext())
+            {
+                return db.Schools.ToList();
+            }
+        }
+
+        public static Object OutputObject(School school)
+        {
+            return new
+            {
+                id = school.Id,
+                school_name = school.school_name
+            };
+        }
     }
 }

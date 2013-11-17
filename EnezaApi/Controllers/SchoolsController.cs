@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EnezaApi.Models;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,7 +14,16 @@ namespace EnezaApi.Controllers
         [HttpGet]
         public Object Get()
         {
-            return "return all Schools";
+            List<School> schools = School.GetAll();
+
+            return JObject.FromObject(new
+            {
+                schools = schools.Select(s =>
+                {
+                    return School.OutputObject(s);
+                })
+            });
+            //return "return all Schools";
         }
     }
 }

@@ -21,22 +21,35 @@ namespace EnezaApi.Controllers
             JObject postData = JObject.Parse(request.Content.ReadAsStringAsync().Result);
 
             Message message = new Message();
-            message.to_user = Models.User.GetIdFromNumber((String)postData["toNumber"]);
-            message.from_user = Models.User.GetIdFromNumber((String)postData["fromNumber"]);
-            message.sent_time = (Int32)postData["sent_time"];
-            message.received_time = (Int32)postData["received_time"];
-            message.body = (String)postData["body"];
-            message.message_type = MessageType.GetIdByName((String)postData["message_time"]);
+            Models.User tempToUser = Models.User.GetByNumber((String)postData["toNumber"]);
 
-            if (message.to_user == 0 || message.from_user == 0)
+            if (tempToUser == null)
             {
                 return JObject.FromObject(ErrorReporting.GenerateCustomError(400));
             }
 
-            if (message.message_type == 0)
+            message.to_user = tempToUser.Id;
+
+            Models.User tempFromUser = Models.User.GetByNumber((String)postData["fromNumber"]);
+
+            if (tempFromUser == null)
+            {
+                return JObject.FromObject(ErrorReporting.GenerateCustomError(400));
+            }
+
+            message.from_user = tempFromUser.Id;
+
+            message.sent_time = (Int32)postData["sent_time"];
+            message.received_time = (Int32)postData["received_time"];
+            message.body = (String)postData["body"];
+            MessageType tempMessageType = MessageType.GetByName((String)postData["message_time"]);
+
+            if (tempMessageType == null)
             {
                 return JObject.FromObject(ErrorReporting.GenerateCustomError(401));
             }
+
+            message.message_type = tempMessageType.Id;
 
             Message newMessage = Message.AddNew(message);
 

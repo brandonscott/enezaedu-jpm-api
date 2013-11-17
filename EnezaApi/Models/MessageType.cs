@@ -13,11 +13,11 @@ namespace EnezaApi.Models
         public Int32 Id { get; set; }
         public String name { get; set; }
 
-        public static Int32 GetIdByName(string name)
+        public static MessageType GetByName(string name)
         {
             using (DataContext db = new DataContext())
             {
-                return db.MessageTypes.Where(mt => mt.name == name).FirstOrDefault().Id;
+                return db.MessageTypes.Where(mt => mt.name == name).FirstOrDefault();
             }
         }
     }
