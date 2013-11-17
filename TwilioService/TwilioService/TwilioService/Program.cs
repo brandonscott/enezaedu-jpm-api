@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Timers;
 using Twilio;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace TwilioService
 {
     class Program
@@ -55,6 +58,17 @@ namespace TwilioService
             {
                 GetNewReceivedMessages().ForEach((x) =>
                 { //ADD MESSAGE ENDPOINT 
+                    DbMessage toStore = new DbMessage();
+                    toStore.toNumber = x.To;
+                    toStore.fromNumber = x.From;
+                    toStore.body = x.Body;
+                    toStore.message_type = "SERVER_RECEIVED";
+                    toStore.sent_time = Convert.ToInt32(ConvertToTimestamp(x.DateSent));
+                    toStore.received_time = Convert.ToInt32(ConvertToTimestamp(DateTime.Now));
+
+                    String body = JsonConvert.SerializeObject(toStore);
+
+                    Curl.SendRequest("http://54.220.201.194/api/messages", "POST", body);
                     Console.WriteLine(x.Body);
                 });
             }
@@ -109,6 +123,15 @@ namespace TwilioService
            }
            return messages;
        }
+    }
 
+    class DbMessage
+    {
+        public String fromNumber { get; set; }
+        public String toNumber { get; set; }
+        public Int32 sent_time { get; set; }
+        public Int32 received_time { get; set; }
+        public String body { get; set; }
+        public String message_type { get; set; }
     }
  }
